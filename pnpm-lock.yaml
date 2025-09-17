@@ -150,6 +150,9 @@ importers:
       '@extension/storage':
         specifier: workspace:*
         version: link:../packages/storage
+      webext-bridge:
+        specifier: ^6.0.1
+        version: 6.0.1
       webextension-polyfill:
         specifier: ^0.12.0
         version: 0.12.0
@@ -264,6 +267,9 @@ importers:
       react-error-boundary:
         specifier: ^6.0.0
         version: 6.0.0(react@19.1.0)
+      webext-bridge:
+        specifier: ^6.0.1
+        version: 6.0.1
     devDependencies:
       '@extension/storage':
         specifier: workspace:*
@@ -406,6 +412,9 @@ importers:
       '@extension/ui':
         specifier: workspace:*
         version: link:../../packages/ui
+      webext-bridge:
+        specifier: ^6.0.1
+        version: 6.0.1
     devDependencies:
       '@extension/hmr':
         specifier: workspace:*
@@ -1486,6 +1495,9 @@ packages:
 
   '@types/stack-utils@2.0.3':
     resolution: {integrity: sha512-9aEbYZ3TbYMznPdcdr3SmIrLXwC/AKZXQeCf9Pgao5CKb8CyHuEX5jzWPTkvregvhRJHcpRO6BFoGW9ycaOkYw==}
+
+  '@types/webextension-polyfill@0.8.3':
+    resolution: {integrity: sha512-GN+Hjzy9mXjWoXKmaicTegv3FJ0WFZ3aYz77Wk8TMp1IY3vEzvzj1vnsa0ggV7vMI1i+PUxe4qqnIJKCzf9aTg==}
 
   '@types/which@2.0.2':
     resolution: {integrity: sha512-113D3mDkZDjo+EeUEHCFy0qniNc1ZpecGiAU7WSo7YDoSzolZIQKpYFHrPpjkB2nuyahcKfrmLXeQlh7gqJYdw==}
@@ -3552,6 +3564,10 @@ packages:
     resolution: {integrity: sha512-21t+ozMQDAL/UGgQVBbZ/xXvNO10++ZPuTmKRO8k9V3AClVRht49ahtDjfY8l1q6nSHOrE5ASfthzH3ol6R/hg==}
     engines: {node: '>=20.17'}
 
+  nanoevents@6.0.2:
+    resolution: {integrity: sha512-FRS2otuFcPPYDPYViNWQ42+1iZqbXydinkRHTHFxrF4a1CpBfmydR9zkI44WSXAXCyPrkcGtPk5CnpW6Y3lFKQ==}
+    engines: {node: ^12.0.0 || ^14.0.0 || >=16.0.0}
+
   nanoid@3.3.11:
     resolution: {integrity: sha512-N8SpfPUnUp1bK+PMYW8qSWdl9U+wwNWI4QKxOYDy9JAro3WMX7p2OeVRF9v+347pnakNevPmiHhNmZ2HbFA76w==}
     engines: {node: ^10 || ^12 || ^13.7 || ^14 || >=15.0.1}
@@ -4205,6 +4221,10 @@ packages:
     resolution: {integrity: sha512-2G2y++21dhj2R7iHAdd0FIzjGwuKZld+7Pl/bTU6YIkrC2ZMbVUjm+luj6A6V34Rv9XfKJDKpTWu9W4Gse1D9g==}
     engines: {node: '>=14.16'}
 
+  serialize-error@9.1.1:
+    resolution: {integrity: sha512-6uZQLGyUkNA4N+Zii9fYukmNu9PEA1F5rqcwXzN/3LtBjwl2dFBbVZ1Zyn08/CGkB4H440PIemdOQBt1Wvjbrg==}
+    engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+
   serialize-javascript@6.0.2:
     resolution: {integrity: sha512-Saa1xPByTTq2gdeFZYLLo+RFE35NHZkAbqZeWNd3BpzppeVisAqpDjcp8dyf6uIvEqJRd46jemmyA4iFIeVk8g==}
 
@@ -4484,6 +4504,9 @@ packages:
   timers-browserify@2.0.12:
     resolution: {integrity: sha512-9phl76Cqm6FhSX9Xe1ZUAMLtm1BLkKj2Qd5ApyWkXzsMRaA7dgr81kf4wJmQf/hAvg8EEyJxDo3du/0KlhPiKQ==}
     engines: {node: '>=0.6.0'}
+
+  tiny-uid@1.1.2:
+    resolution: {integrity: sha512-0beRFXR+fv4C40ND2PqgNjq6iyB1dKXciKJjslLw0kPYCcR82aNd2b+Tt2yy06LimIlvtoehgvrm/fUZCutSfg==}
 
   tinyglobby@0.2.13:
     resolution: {integrity: sha512-mEwzpUgrLySlveBwEVDMKk5B57bhLPYovRfPAXD5gA/98Opn0rCDj3GtLwFvCvH5RK9uPCExUROW5NjDwvqkxw==}
@@ -4766,8 +4789,14 @@ packages:
       puppeteer-core:
         optional: true
 
+  webext-bridge@6.0.1:
+    resolution: {integrity: sha512-GruIrN+vNwbxVCi8UW4Dqk5YkcGA9V0ZfJ57jXP9JXHbrsDs5k2N6NNYQR5e+wSCnQpGYOGAGihwUpKlhg8QIw==}
+
   webextension-polyfill@0.12.0:
     resolution: {integrity: sha512-97TBmpoWJEE+3nFBQ4VocyCdLKfw54rFaJ6EVQYLBCXqCIpLSZkwGgASpv4oPt9gdKCJ80RJlcmNzNn008Ag6Q==}
+
+  webextension-polyfill@0.9.0:
+    resolution: {integrity: sha512-LTtHb0yR49xa9irkstDxba4GATDAcDw3ncnFH9RImoFwDlW47U95ME5sn5IiQX2ghfaECaf6xyXM8yvClIBkkw==}
 
   webpack-sources@3.2.3:
     resolution: {integrity: sha512-/DyMEOrDgLKKIG0fmvtz+4dUX/3Ghozwgm6iPp8KRhvn+eQf9+Q7GWxVNMk3+uCPWfdXYC4ExGBckIXdFEfH1w==}
@@ -5706,13 +5735,14 @@ snapshots:
       '@types/react': 19.1.5
 
   '@types/react@19.1.5':
-
     dependencies:
       csstype: 3.1.3
 
   '@types/sinonjs__fake-timers@8.1.5': {}
 
   '@types/stack-utils@2.0.3': {}
+
+  '@types/webextension-polyfill@0.8.3': {}
 
   '@types/which@2.0.2': {}
 
@@ -8207,6 +8237,8 @@ snapshots:
 
   nano-spawn@1.0.2: {}
 
+  nanoevents@6.0.2: {}
+
   nanoid@3.3.11: {}
 
   napi-postinstall@0.2.4: {}
@@ -8870,6 +8902,10 @@ snapshots:
     dependencies:
       type-fest: 2.19.0
 
+  serialize-error@9.1.1:
+    dependencies:
+      type-fest: 2.19.0
+
   serialize-javascript@6.0.2:
     dependencies:
       randombytes: 2.1.0
@@ -9228,6 +9264,8 @@ snapshots:
     dependencies:
       setimmediate: 1.0.5
 
+  tiny-uid@1.1.2: {}
+
   tinyglobby@0.2.13:
     dependencies:
       fdir: 6.4.4(picomatch@4.0.2)
@@ -9565,7 +9603,17 @@ snapshots:
       - supports-color
       - utf-8-validate
 
+  webext-bridge@6.0.1:
+    dependencies:
+      '@types/webextension-polyfill': 0.8.3
+      nanoevents: 6.0.2
+      serialize-error: 9.1.1
+      tiny-uid: 1.1.2
+      webextension-polyfill: 0.9.0
+
   webextension-polyfill@0.12.0: {}
+
+  webextension-polyfill@0.9.0: {}
 
   webpack-sources@3.2.3: {}
 

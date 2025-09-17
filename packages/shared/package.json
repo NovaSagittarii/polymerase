@@ -23,7 +23,8 @@
     "postinstall": "pnpm ready"
   },
   "dependencies": {
-    "react-error-boundary": "^6.0.0"
+    "react-error-boundary": "^6.0.0",
+    "webext-bridge": "^6.0.1"
   },
   "devDependencies": {
     "@extension/storage": "workspace:*",

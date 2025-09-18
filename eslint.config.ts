@@ -90,6 +90,18 @@ export default config(
       'import-x/consistent-type-specifier-style': 'error',
       'import-x/exports-last': 'error',
       'import-x/first': 'error',
+      '@typescript-eslint/no-unused-vars': [
+        'error',
+        {
+          args: 'all',
+          argsIgnorePattern: '^_',
+          caughtErrors: 'all',
+          caughtErrorsIgnorePattern: '^_',
+          destructuredArrayIgnorePattern: '^_',
+          varsIgnorePattern: '^_',
+          ignoreRestSiblings: true,
+        },
+      ],
     },
     linterOptions: {
       reportUnusedDisableDirectives: 'error',

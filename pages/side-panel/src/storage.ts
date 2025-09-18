@@ -1,6 +1,8 @@
+import { UnsetLocalStorage } from './storageAdapter';
 import { persistentAtom } from '@nanostores/persistent';
 import { atom } from 'nanostores';
 import { v4 as uuidv4 } from 'uuid';
+import type { IObjectStorage } from './storageAdapter';
 import type { Peer } from 'peerjs';
 
 const $peerId = persistentAtom<string>('peer-id', uuidv4());
@@ -20,3 +22,5 @@ export const $peerConnect = persistentAtom<string>('peer-connect', '');
 export const $peer = atom<Peer | null>(null);
 
 export const $status = atom<string>('not ready');
+
+export const $localStorage = atom<IObjectStorage>(new UnsetLocalStorage());

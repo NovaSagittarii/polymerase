@@ -1,4 +1,5 @@
-import { $peer, $peerConnect, $peerId, $status } from './storage';
+import { $localStorage, $peer, $peerConnect, $peerId, $status } from './storage';
+import { PeerDexieStorage, PeerStorage, UnsetLocalStorage } from './storageAdapter';
 import { useStore } from '@nanostores/react';
 import { Peer } from 'peerjs';
 import { useEffect, useState } from 'react';
@@ -8,6 +9,7 @@ export default function StorageManager() {
   const peerId = useStore($peerId);
   const peer = useStore($peer);
   const status = useStore($status);
+  const storage = useStore($localStorage);
   const [attempts, setAttempts] = useState(0);
 
   useEffect(() => {
@@ -25,6 +27,7 @@ export default function StorageManager() {
       if (peerConnect === 'leader') {
         // primary
         $status.set('ready');
+        $localStorage.set(new PeerDexieStorage(peer));
         peer.on('connection', conn => {
           conn.on('open', () => {
             console.log('open', conn.connectionId);
@@ -39,17 +42,18 @@ export default function StorageManager() {
       } else if (peerConnect) {
         // client
         $status.set('Connecting to primary...');
-        const conn = peer.connect(peerConnect);
+        const conn = peer.connect(peerConnect, { reliable: true });
         const timeout = setTimeout(() => {
           setAttempts(x => x + 1);
         }, 5000);
         conn.on('open', () => {
           clearTimeout(timeout);
           $status.set('ready');
-          setTimeout(() => {
-            conn.send('hi!');
-            console.log('sent');
-          }, 1000);
+          $localStorage.set(new PeerStorage(conn));
+          // setTimeout(() => {
+          //   conn.send('hi!');
+          //   console.log('sent');
+          // }, 1000);
         });
         conn.on('close', () => {
           $status.set('disconnected');
@@ -57,6 +61,9 @@ export default function StorageManager() {
         });
       }
     }
+    return () => {
+      $localStorage.set(new UnsetLocalStorage());
+    };
   }, [peer, peerConnect]);
 
   return (
@@ -90,6 +97,18 @@ export default function StorageManager() {
           <code>{peerConnect}</code>
         </div>
       )}
+      <button
+        onClick={async () => {
+          console.log(await storage.getItem('test', prompt('id?') || 'A'));
+        }}>
+        Get
+      </button>
+      <button
+        onClick={async () => {
+          console.log(await storage.setItem('test', prompt('id?') || 'A', { val: prompt('val?') }));
+        }}>
+        Set
+      </button>
     </div>
   );
 }

@@ -28,6 +28,7 @@ export class DexieStorage implements IObjectStorage {
     this.db.version(1).stores({
       obj: '[type+id], _fill',
     });
+    window.db = this.db; // expose to global scope for debugging
   }
   async setItem(type: string, id: string, value: StoredType) {
     this.db.obj.put({ ...value, type, id });

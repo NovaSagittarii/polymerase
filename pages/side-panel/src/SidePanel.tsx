@@ -22,6 +22,13 @@ const SidePanel = () => {
   return (
     <div className={cn('App', isLight ? 'bg-slate-50' : 'bg-gray-800')}>
       <header className={cn('App-header', isLight ? 'text-gray-900' : 'text-gray-100')}>
+        <button
+          onClick={() => {
+            const customPageUrl = chrome.runtime.getURL('side-panel/index.html');
+            chrome.tabs.create({ url: customPageUrl });
+          }}>
+          open in new tab
+        </button>
         {/* <button onClick={goGithubSite}>
           <img src={chrome.runtime.getURL(logo)} className="App-logo" alt="logo" />
         </button>

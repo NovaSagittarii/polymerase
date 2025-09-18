@@ -75,6 +75,10 @@ const manifest = {
       resources: ['*.js', '*.css', '*.svg', 'icon-128.png', 'icon-34.png'],
       matches: ['*://*/*'],
     },
+    {
+      resources: ['side-panel/index.html'],
+      matches: ['<all_urls>'],
+    },
   ],
   side_panel: {
     default_path: 'side-panel/index.html',

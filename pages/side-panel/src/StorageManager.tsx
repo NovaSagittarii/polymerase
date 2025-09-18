@@ -40,9 +40,10 @@ export default function StorageManager() {
     // });
     peer.on('error', e => {
       if (e.type === 'unavailable-id') setIssue('ID taken.');
-      if (e.type === 'network') setIssue('Cannot connect.');
-      if (e.type === 'unavailable-id' || e.type === 'network') {
-        const timeout = setTimeout(() => setAttempts(x => x + 1), 5000);
+      if (e.type === 'network') setIssue('Cannot connect to signaling server.');
+      if (e.type === 'peer-unavailable') setIssue('Primary unavailable');
+      if (e.type === 'unavailable-id' || e.type === 'network' || e.type === 'peer-unavailable') {
+        const timeout = setTimeout(() => setAttempts(x => x + 1), 15000);
         cleanup.push(() => clearTimeout(timeout));
       } else {
         console.warn('unhandled peer error', e.type, e);
@@ -81,7 +82,8 @@ export default function StorageManager() {
         const conn = peer.connect(peerConnect, { reliable: true });
         const timeout = setTimeout(() => {
           setAttempts(x => x + 1);
-        }, 5000);
+          setIssue('Unable to connect to primary.');
+        }, 20000);
         cleanup.push(() => clearTimeout(timeout));
         conn.on('open', () => {
           clearTimeout(timeout);

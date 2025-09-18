@@ -1,5 +1,6 @@
 import { $localStorage, $peer, $peerConnect, $peerId, $status } from './storage';
 import { PeerDexieStorage, PeerStorage, UnsetLocalStorage } from './storageAdapter';
+import { Indicator } from '@extension/ui';
 import { useStore } from '@nanostores/react';
 import { Peer } from 'peerjs';
 import { useEffect, useState } from 'react';
@@ -11,22 +12,57 @@ export default function StorageManager() {
   const status = useStore($status);
   const storage = useStore($localStorage);
   const [attempts, setAttempts] = useState(0);
+  const [issue, setIssue] = useState('');
 
   useEffect(() => {
-    const peer = new Peer(peerId);
+    const cleanup: (() => void)[] = [];
+    const peer = new Peer(peerId, {
+      host: '1.peerjs.com',
+      port: 443,
+    });
     $status.set('Connecting to signaling server...');
-    peer.on('open', () => $peer.set(peer));
+    peer.on('open', () => {
+      setIssue('');
+      $peer.set(peer);
+    });
+    // peer.on('disconnected', () => {
+    //   for (let i = 0; i <= 5; ++i) {
+    //     const x = i;
+    //     const timeout = setTimeout(() => {
+    //       setIssue(`Disconnected, retry in ${5 - x}s.`);
+    //       if (x === 5) {
+    //         if (peer.open) peer.reconnect();
+    //         else setAttempts(x => x + 1);
+    //       }
+    //     }, i * 1000);
+    //     cleanup.push(() => clearTimeout(timeout));
+    //   }
+    // });
+    peer.on('error', e => {
+      if (e.type === 'unavailable-id') setIssue('ID taken.');
+      if (e.type === 'network') setIssue('Cannot connect.');
+      if (e.type === 'unavailable-id' || e.type === 'network') {
+        const timeout = setTimeout(() => setAttempts(x => x + 1), 5000);
+        cleanup.push(() => clearTimeout(timeout));
+      } else {
+        console.warn('unhandled peer error', e.type, e);
+        setIssue('PeerJS Error: ' + e.type);
+      }
+    });
     return () => {
       peer.destroy();
+      cleanup.forEach(f => f());
     };
   }, [peerId, attempts]);
 
   useEffect(() => {
+    const cleanup: (() => void)[] = [];
     if (peer) {
       console.log('Connect', peerConnect);
+      setIssue('');
       if (peerConnect === 'leader') {
         // primary
-        $status.set('ready');
+        $status.set('OK');
         $localStorage.set(new PeerDexieStorage(peer));
         peer.on('connection', conn => {
           conn.on('open', () => {
@@ -46,9 +82,10 @@ export default function StorageManager() {
         const timeout = setTimeout(() => {
           setAttempts(x => x + 1);
         }, 5000);
+        cleanup.push(() => clearTimeout(timeout));
         conn.on('open', () => {
           clearTimeout(timeout);
-          $status.set('ready');
+          $status.set('OK');
           $localStorage.set(new PeerStorage(conn));
           // setTimeout(() => {
           //   conn.send('hi!');
@@ -59,20 +96,21 @@ export default function StorageManager() {
           $status.set('disconnected');
           setAttempts(x => x + 1);
         });
+      } else {
+        $status.set('Connected to signaling server.');
+        setIssue('No connect config set.');
       }
     }
     return () => {
       $localStorage.set(new UnsetLocalStorage());
+      cleanup.forEach(f => f());
     };
   }, [peer, peerConnect]);
 
   return (
     <div className="flex flex-col items-start text-sm">
-      <div className="flex items-center gap-2">
-        {'Status: '}
-        <div className={`h-2 w-2 rounded-full ${status === 'ready' ? 'bg-green-500' : 'bg-amber-500'}`}></div>
-        {status}
-      </div>
+      <Indicator label="Status: " ok={status === 'OK'} description={status} />
+      {issue && <Indicator critical label="Issue: " ok={!issue} description={issue || 'OK'} />}
       <div>
         {'ID: '}
         <code>{peerId}</code>

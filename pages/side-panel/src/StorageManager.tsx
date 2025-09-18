@@ -99,15 +99,25 @@ export default function StorageManager() {
       )}
       <button
         onClick={async () => {
-          console.log(await storage.getItem('test', prompt('id?') || 'A'));
+          const id = prompt('id?') || 'A';
+          console.log('get', id, await storage.getItem('test', id));
         }}>
         Get
       </button>
       <button
         onClick={async () => {
-          console.log(await storage.setItem('test', prompt('id?') || 'A', { val: prompt('val?') }));
+          const id = prompt('id?') || 'A';
+          const val = prompt('val?') || 'A';
+          console.log('set', id, val, await storage.setItem('test', id, { val }));
         }}>
         Set
+      </button>
+      <button
+        onClick={async () => {
+          const id = prompt('id?') || 'A';
+          console.log('del', id, await storage.removeItem('test', id));
+        }}>
+        Del
       </button>
     </div>
   );

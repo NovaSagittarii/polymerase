@@ -3,7 +3,7 @@ import { v4 as uuidv4 } from 'uuid';
 import type { EntityTable } from 'dexie';
 import type { Peer, DataConnection } from 'peerjs';
 
-type StoredType = Record<string, string | number | boolean>;
+type StoredType = Record<string, string | number | boolean | string[]>;
 
 export interface IObjectStorage {
   setItem(type: string, id: string, value: StoredType): Promise<void>;
@@ -56,10 +56,10 @@ export class PeerDexieStorage extends DexieStorage {
             console.warn('Missing request id.', d);
             return;
           }
-          let ret = {};
+          let ret: StoredType | undefined = {};
           switch (d.type) {
             case 'get': {
-              ret = { ...(await this.getItem(d.payload.type, d.payload.id)) };
+              ret = await this.getItem(d.payload.type, d.payload.id);
               break;
             }
             case 'set': {

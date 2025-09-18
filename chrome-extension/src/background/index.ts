@@ -1,7 +1,7 @@
 import 'webextension-polyfill';
 import { exampleThemeStorage } from '@extension/storage';
-import { onMessage } from 'webext-bridge/background';
-import type { HandshakeResponse } from 'webext-bridge';
+// import { onMessage } from 'webext-bridge/background';
+// import type { HandshakeResponse } from 'webext-bridge';
 
 exampleThemeStorage.get().then(theme => {
   console.log('theme', theme);
@@ -10,7 +10,7 @@ exampleThemeStorage.get().then(theme => {
 console.log('Background loaded');
 console.log("Edit 'chrome-extension/src/background/index.ts' and save to reload.");
 
-onMessage('Handshake', async (message): Promise<HandshakeResponse> => {
-  console.log('Received message', message);
-  return Math.random() > 0.5 ? 'No' : 'Yes';
-});
+// onMessage('Handshake', async (message): Promise<HandshakeResponse> => {
+//   console.log('Received message', message);
+//   return Math.random() > 0.5 ? 'No' : 'Yes';
+// });

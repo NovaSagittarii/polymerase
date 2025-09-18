@@ -21,9 +21,10 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@extension/env": "workspace:*",
     "@extension/shared": "workspace:*",
     "@extension/storage": "workspace:*",
-    "@extension/env": "workspace:*"
+    "webext-bridge": "^6.0.1"
   },
   "devDependencies": {
     "@extension/hmr": "workspace:*",

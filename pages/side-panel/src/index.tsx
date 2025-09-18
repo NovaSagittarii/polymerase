@@ -1,6 +1,7 @@
 import '@src/index.css';
 import SidePanel from '@src/SidePanel';
 import { createRoot } from 'react-dom/client';
+import './background';
 
 const init = () => {
   const appContainer = document.querySelector('#app-container');

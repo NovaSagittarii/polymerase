@@ -29,7 +29,8 @@
     "dexie": "^4.2.0",
     "nanostores": "^1.0.1",
     "peerjs": "^1.5.5",
-    "uuid": "^13.0.0"
+    "uuid": "^13.0.0",
+    "webext-bridge": "^6.0.1"
   },
   "devDependencies": {
     "@extension/tailwindcss-config": "workspace:*",

@@ -26,7 +26,7 @@ export class DexieStorage implements IObjectStorage {
       obj: EntityTable<StoredType, '[type+id]'>;
     };
     this.db.version(1).stores({
-      obj: '[type+id]',
+      obj: '[type+id], _fill',
     });
   }
   async setItem(type: string, id: string, value: StoredType) {

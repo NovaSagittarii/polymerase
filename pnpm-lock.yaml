@@ -365,6 +365,9 @@ importers:
       '@extension/storage':
         specifier: workspace:*
         version: link:../../packages/storage
+      webext-bridge:
+        specifier: ^6.0.1
+        version: 6.0.1
     devDependencies:
       '@extension/hmr':
         specifier: workspace:*
@@ -577,6 +580,9 @@ importers:
       uuid:
         specifier: ^13.0.0
         version: 13.0.0
+      webext-bridge:
+        specifier: ^6.0.1
+        version: 6.0.1
     devDependencies:
       '@extension/tailwindcss-config':
         specifier: workspace:*

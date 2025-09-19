@@ -571,6 +571,9 @@ importers:
       dexie:
         specifier: ^4.2.0
         version: 4.2.0
+      dexie-react-hooks:
+        specifier: ^4.2.0
+        version: 4.2.0(@types/react@19.1.5)(dexie@4.2.0)(react@19.1.0)
       nanostores:
         specifier: ^1.0.1
         version: 1.0.1
@@ -2401,6 +2404,13 @@ packages:
     resolution: {integrity: sha512-pGjwhsmsp4kL2RTz08wcOlGN83otlqHeD/Z5T8GXZB+/YcpQ/dgo+lbU8ZsGxV0HIvqqxo9l7mqYwyYMD9bKDg==}
     engines: {node: '>=0.10'}
     hasBin: true
+
+  dexie-react-hooks@4.2.0:
+    resolution: {integrity: sha512-u7KqTX9JpBQK8+tEyA9X0yMGXlSCsbm5AU64N6gjvGk/IutYDpLBInMYEAEC83s3qhIvryFS+W+sqLZUBEvePQ==}
+    peerDependencies:
+      '@types/react': '>=16'
+      dexie: '>=4.2.0-alpha.1 <5.0.0'
+      react: '>=16'
 
   dexie@4.2.0:
     resolution: {integrity: sha512-OSeyyWOUetDy9oFWeddJgi83OnRA3hSFh3RrbltmPgqHszE9f24eUCVLI4mPg0ifsWk0lQTdnS+jyGNrPMvhDA==}
@@ -6881,6 +6891,12 @@ snapshots:
 
   detect-libc@1.0.3:
     optional: true
+
+  dexie-react-hooks@4.2.0(@types/react@19.1.5)(dexie@4.2.0)(react@19.1.0):
+    dependencies:
+      '@types/react': 19.1.5
+      dexie: 4.2.0
+      react: 19.1.0
 
   dexie@4.2.0: {}
 

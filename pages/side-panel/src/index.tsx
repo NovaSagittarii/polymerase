@@ -2,6 +2,7 @@ import '@src/index.css';
 import SidePanel from '@src/SidePanel';
 import { createRoot } from 'react-dom/client';
 import './background';
+import './background2';
 
 const init = () => {
   const appContainer = document.querySelector('#app-container');

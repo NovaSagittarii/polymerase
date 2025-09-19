@@ -1,3 +1,4 @@
+import '@extension/shared/lib/utils/types';
 import { resolve } from 'node:path';
 import { makeEntryPointPlugin } from '@extension/hmr';
 import { getContentScriptEntries, withPageConfig } from '@extension/vite-config';

@@ -1,3 +1,5 @@
+import type { TabInfoResponse } from 'webext-bridge';
+
 export class ExtractFunction {
   protected querySelector;
   protected querySelectorAll;
@@ -16,7 +18,7 @@ export class ExtractFunction {
   validateUrl(url: string) {
     return this.pattern.test(url);
   }
-  async extract(): Promise<Record<string, string | number | boolean | undefined | null>[]> {
+  async extract(_info: TabInfoResponse): Promise<Record<string, string | number | boolean | undefined | null>[]> {
     return [];
   }
   async utils() {

@@ -1,3 +1,5 @@
+import { processRequest } from './background2';
+import BackgroundWorker from './BackgroundWorker';
 import { $localStorage, $peer, $peerConnect, $peerId, $status } from './storage';
 import { PeerDexieStorage, PeerStorage, UnsetLocalStorage } from './storageAdapter';
 import { Indicator } from '@extension/ui';
@@ -67,13 +69,13 @@ export default function StorageManager() {
         $localStorage.set(new PeerDexieStorage(peer));
         peer.on('connection', conn => {
           conn.on('open', () => {
-            console.log('open', conn.connectionId);
+            console.info('open', conn.connectionId);
           });
-          conn.on('data', data => {
-            console.log('rcv', conn.connectionId, data);
-          });
+          // conn.on('data', data => {
+          //   console.info('rcv', conn.connectionId, data);
+          // });
           conn.on('close', () => {
-            console.log('close', conn.connectionId);
+            console.info('close', conn.connectionId);
           });
         });
       } else if (peerConnect) {
@@ -135,30 +137,47 @@ export default function StorageManager() {
         <div>
           {'To: '}
           <code>{peerConnect}</code>
+          <BackgroundWorker storage={storage} />
         </div>
       )}
-      <button
-        onClick={async () => {
-          const id = prompt('id?') || 'A';
-          console.log('get', id, await storage.getItem('test', id));
-        }}>
-        Get
-      </button>
-      <button
-        onClick={async () => {
-          const id = prompt('id?') || 'A';
-          const val = prompt('val?') || 'A';
-          console.log('set', id, val, await storage.setItem('test', id, { val }));
-        }}>
-        Set
-      </button>
-      <button
-        onClick={async () => {
-          const id = prompt('id?') || 'A';
-          console.log('del', id, await storage.removeItem('test', id));
-        }}>
-        Del
-      </button>
+      <div className="flex gap-2">
+        <button
+          onClick={async () => {
+            const id = prompt('id?') || 'A';
+            console.log('get', id, await storage.getItem('test', id));
+          }}>
+          Get
+        </button>
+        <button
+          onClick={async () => {
+            const id = prompt('id?') || 'A';
+            const val = prompt('val?') || 'A';
+            console.log('set', id, val, await storage.setItem('test', id, { val }));
+          }}>
+          Set
+        </button>
+        <button
+          onClick={async () => {
+            const id = prompt('id?') || 'A';
+            console.log('del', id, await storage.removeItem('test', id));
+          }}>
+          Del
+        </button>
+        <button
+          onClick={async () => {
+            console.log('req', await storage.request());
+          }}>
+          Req
+        </button>
+        <button
+          onClick={async () => {
+            const r = await storage.request();
+            console.log('req-proc', r);
+            await processRequest(r);
+          }}>
+          ReqProc
+        </button>
+      </div>
     </div>
   );
 }

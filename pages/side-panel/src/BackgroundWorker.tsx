@@ -33,7 +33,7 @@ export default function BackgroundWorker({ name = 'Worker', storage }: WorkerPro
 
   return (
     <div>
-      <Indicator label={name + ' Status: '} ok={status === 'idle'} description={status} />
+      <Indicator label={name} ok={status === 'idle' || status === 'complete'} description={status} />
     </div>
   );
 }

@@ -137,7 +137,8 @@ export default function StorageManager() {
         <div>
           {'To: '}
           <code>{peerConnect}</code>
-          <BackgroundWorker storage={storage} />
+          <BackgroundWorker storage={storage} name="worker1" />
+          <BackgroundWorker storage={storage} name="worker2" />
         </div>
       )}
       <div className="flex gap-2">

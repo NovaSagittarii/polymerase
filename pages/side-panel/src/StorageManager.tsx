@@ -1,4 +1,4 @@
-import { processRequest } from './background2';
+import { processRequest } from './backgroundTab';
 import BackgroundWorker from './BackgroundWorker';
 import { $localStorage, $peer, $peerConnect, $peerId, $status } from './storage';
 import { PeerDexieStorage, PeerStorage, UnsetLocalStorage } from './storageAdapter';

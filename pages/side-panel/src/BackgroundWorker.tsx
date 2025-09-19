@@ -1,4 +1,4 @@
-import { processRequest } from './background2';
+import { processRequest } from './backgroundTab';
 import { Indicator } from '@extension/ui';
 import { useEffect, useState } from 'react';
 import type { IObjectStorage } from './storageAdapter';
